@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
                 presence: true,
                 uniqueness: { case_sensitive: false },
                 length: {minimum: 3, maximum: 254 }
-  #validates :password, presence: true, length: {minimum: 6}
+  validates :password, presence: true, length: {minimum: 6}
   
   #has_secure_password
   

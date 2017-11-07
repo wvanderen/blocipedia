@@ -2,11 +2,12 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:new, :create]
   resources :wikis  
-  devise_for :users
+  devise_for :users, controllers: {users: 'users' }
   
   resources :users do
     collection do
       get :downgrade
+      get :upgrade
     end
   end
   

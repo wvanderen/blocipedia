@@ -5,7 +5,7 @@ class ChargesController < ApplicationController
   def new
     @stripe_btn_data = {
       key: "#{ ENV['STRIPE_PUBLISHABLE_KEY'] }",
-      description: "BigMoney Membership - #{current_user.email}",
+      description: "Premium Membership - #{current_user.email}",
       amount: @amount
     }
   end
@@ -22,13 +22,12 @@ class ChargesController < ApplicationController
    charge = Stripe::Charge.create(
      customer: customer.id, # Note -- this is NOT the user_id in your app
      amount: @amount,
-     description: "BigMoney Membership - #{current_user.email}",
+     description: "Premium Membership - #{current_user.email}",
      currency: 'usd'
    )
  
    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-   current_user.premium!
-   redirect_to welcome_index_path
+   redirect_to upgrade_users_path
  
    # Stripe will send back CardErrors, with friendly messages
    # when something goes wrong.
